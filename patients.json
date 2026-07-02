@@ -1,0 +1,37 @@
+[
+  {
+    "name": "aatharshen",
+    "age": "40",
+    "gender": "Male",
+    "status": "Healthy",
+    "id": "PAT001"
+  },
+  {
+    "name": "aatharshen",
+    "age": "40",
+    "gender": "Male",
+    "status": "Healthy",
+    "id": "PAT002"
+  },
+  {
+    "name": "aatharshen",
+    "age": "40",
+    "gender": "Male",
+    "status": "Healthy",
+    "id": "PAT003"
+  },
+  {
+    "name": "kaushal",
+    "age": "69",
+    "gender": "Male",
+    "status": "Healthy",
+    "id": "PAT004"
+  },
+  {
+    "name": "kaushal",
+    "age": "69",
+    "gender": "Male",
+    "status": "Healthy",
+    "id": "PAT005"
+  }
+]
