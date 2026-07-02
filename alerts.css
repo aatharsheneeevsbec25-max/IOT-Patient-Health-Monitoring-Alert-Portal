@@ -1,53 +1,99 @@
-body{
-    margin:0;
-    background:#eef3fa;
-    font-family:Arial,sans-serif;
+/* --- Emergency Alerts Styling Layout --- */
+.alerts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-header{
-    background:#1565c0;
-    color:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 40px;
+.alert-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-left: 6px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.2s;
 }
 
-header a{
-    color:white;
-    text-decoration:none;
-    margin-left:20px;
+/* Severity System Tiers */
+.alert-card.critical {
+    border-left-color: #ef4444; /* High Alert Red */
+    background-color: #fef2f2;
 }
 
-.container{
-    padding:40px;
+.alert-card.warning {
+    border-left-color: #f59e0b; /* Alert Orange */
+    background-color: #fffbeb;
 }
 
-.alert{
-    background:white;
-    padding:20px;
-    margin-bottom:20px;
-    border-left:8px solid red;
-    border-radius:10px;
-    box-shadow:0 4px 10px rgba(0,0,0,.15);
+/* Alert Content Elements */
+.alert-details h4 {
+    font-size: 16px;
+    color: #0f172a;
+    margin-bottom: 4px;
 }
 
-.normal{
-    border-left:8px solid green;
+.alert-details p {
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.5;
 }
 
-.warning{
-    border-left:8px solid orange;
+.alert-time {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 6px;
+    display: block;
 }
 
-.critical{
-    border-left:8px solid red;
+/* Action Control Buttons */
+.alert-actions {
+    display: flex;
+    gap: 10px;
 }
 
-.alert h3{
-    margin:0;
+.btn-ack {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: background 0.2s;
 }
 
-.alert p{
-    margin-top:10px;
+.btn-ack:hover { 
+    background-color: #059669; 
+}
+
+.btn-dismiss {
+    background-color: #cbd5e1;
+    color: #334155;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.btn-dismiss:hover { 
+    background-color: #94a3b8; 
+}
+
+/* Empty State Styling */
+.no-alerts {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    color: #64748b;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px dashed #cbd5e1;
 }

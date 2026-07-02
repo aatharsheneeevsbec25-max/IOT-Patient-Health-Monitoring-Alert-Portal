@@ -1,203 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Dashboard - IoT Health</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        /* Contextual layout fallbacks to ensure dashboard styling runs perfectly */
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        .vital-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
 
-<title>IoT Patient Health Monitoring Dashboard</title>
+        .vital-card h4 {
+            font-size: 13px;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
 
-<link rel="stylesheet" href="css/dashboard.css">
+        .vital-card .number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+        }
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        .vital-card .unit {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-left: 2px;
+        }
 
+        .ecg-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            margin-top: 25px;
+        }
+
+        .ecg-box h3 {
+            font-size: 16px;
+            color: #0f172a;
+            margin-bottom: 15px;
+        }
+
+        canvas {
+            background-color: #0f172a; /* Sleek dark monitor view for the ECG wave */
+            border-radius: 8px;
+            display: block;
+            width: 100%;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="sidebar">
-
-<h2>🏥 IoT Health</h2>
-
-<a href="dashboard.html">🏠 Dashboard</a>
-<a href="patients.html">👨‍⚕️ Patients</a>
-<a href="alerts.html">🚨 Alerts</a>
-<a href="reports.html">📄 Reports</a>
-<a href="login.html">🚪 Logout</a>
-
-</div>
-
-<div class="main">
-
-<div class="header">
-
-<h2>Doctor Dashboard</h2>
-
-<div class="top-right">
-
-<p id="doctorName">👨‍⚕️ DOCTOR</p>
-
-<p id="currentDateTime"></p>
-
-</div>
-
-</div>
-
-<h2>Live Patient Monitoring</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>❤️ Heart Rate</h3>
-<h1 id="heartRate">--</h1>
-<p>bpm</p>
-</div>
-
-<div class="card">
-<h3>🩸 Blood Pressure</h3>
-<h1 id="bp">--</h1>
-<p>mmHg</p>
-</div>
-
-<div class="card">
-<h3>🩺 Blood Sugar</h3>
-<h1 id="sugar">--</h1>
-<p>mg/dL</p>
-</div>
-
-<div class="card">
-<h3>🫁 SpO₂</h3>
-<h1 id="spo2">--</h1>
-<p>%</p>
-</div>
-
-<div class="card">
-<h3>🌡 Temperature</h3>
-<h1 id="temperature">--</h1>
-<p>°C</p>
-</div>
-
-</div>
-
-<div class="graph-container">
-
-<div class="graph-box">
-
-<h3>Live Heart Rate Graph</h3>
-
-<canvas id="heartChart"></canvas>
-
-</div>
-
-<div class="graph-box">
-
-<h3>Live ECG Monitor</h3>
-
-<canvas id="ecgCanvas" width="850" height="250"></canvas>
-
-</div>
-
-</div>
-
-<h2>Hospital Statistics</h2>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>Total Patients</h3>
-
-<h1 id="totalPatients">0</h1>
-
-</div>
-
-<div class="card">
-
-<h3>Healthy</h3>
-
-<h1 id="healthyPatients">0</h1>
-
-</div>
-
-<div class="card">
-
-<h3>Warning</h3>
-
-<h1 id="warningPatients">0</h1>
-
-</div>
-
-<div class="card">
-
-<h3>Critical</h3>
-
-<h1 id="criticalPatients">0</h1>
-
-</div>
-
-</div>
-
-<h2>Recent Patients</h2>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>ID</th>
-<th>Name</th>
-<th>Heart Rate</th>
-<th>SpO₂</th>
-<th>Blood Pressure</th>
-<th>Status</th>
-
-</tr>
-
-</thead>
-
-<tbody id="recentPatients">
-
-<tr>
-
-<td>PAT001</td>
-<td>John Doe</td>
-<td>72</td>
-<td>98%</td>
-<td>120/80</td>
-<td>Healthy</td>
-
-</tr>
-
-<tr>
-
-<td>PAT002</td>
-<td>Priya</td>
-<td>88</td>
-<td>96%</td>
-<td>118/78</td>
-<td>Healthy</td>
-
-</tr>
-
-<tr>
-
-<td>PAT003</td>
-<td>Rahul</td>
-<td>112</td>
-<td>92%</td>
-<td>145/95</td>
-<td style="color:red;">Critical</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-<script src="js/dashboard.js"></script>
-
+    <div class="sidebar">
+        <h2>🏥 IoT Health</h2>
+        <a href="dashboard.html" class="active">🏠 Dashboard</a>
+        <a href="patients.html">👨‍⚕️ Patients</a>
+        <a href="alerts.html">🚨 Alerts</a>
+        <a href="reports.html">📄 Reports</a>
+        <a href="index.html">🚪 Logout</a>
+    </div>
+
+    <div class="main">
+        <div class="header">
+            <div>
+                <h2>Clinical Telemetry Center</h2>
+                <p id="currentDateTime" style="font-size: 14px; color: #64748b; margin-top: 4px;">Loading clock stream...</p>
+            </div>
+            <div class="top-right" style="text-align: right;">
+                <p style="font-weight: 600; color: #0f172a;">👨‍⚕️ Dr. Administrator</p>
+                <span style="font-size: 12px; color: #10b981; font-weight: 600;">● System Nominal</span>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card" style="border-top: 4px solid #0284c7;">
+                <h3>Total Patients</h3>
+                <div class="value" id="totalPatients">--</div>
+            </div>
+            <div class="stat-card" style="border-top: 4px solid #10b981;">
+                <h3>Stable Units</h3>
+                <div class="value" id="healthyPatients">--</div>
+            </div>
+            <div class="stat-card" style="border-top: 4px solid #f59e0b;">
+                <h3>Monitored Warnings</h3>
+                <div class="value" id="warningPatients">--</div>
+            </div>
+            <div class="stat-card" style="border-top: 4px solid #ef4444;">
+                <h3>Critical Care</h3>
+                <div class="value" id="criticalPatients">--</div>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 15px; color: #0f172a;">Real-Time Patient Vitals (IoT Stream)</h3>
+
+        <div class="vitals-grid">
+            <div class="vital-card">
+                <h4>Pulse Rate</h4>
+                <div class="number"><span id="heartRate">--</span> <span class="unit">bpm</span></div>
+            </div>
+            <div class="vital-card">
+                <h4>Blood Pressure</h4>
+                <div class="number"><span id="bp">--</span> <span class="unit">mmHg</span></div>
+            </div>
+            <div class="vital-card">
+                <h4>Blood Sugar</h4>
+                <div class="number"><span id="sugar">--</span> <span class="unit">mg/dL</span></div>
+            </div>
+            <div class="vital-card">
+                <h4>SpO₂ Levels</h4>
+                <div class="number"><span id="spo2">--</span> <span class="unit">%</span></div>
+            </div>
+            <div class="vital-card">
+                <h4>Body Temp</h4>
+                <div class="number"><span id="temperature">--</span> <span class="unit">°C</span></div>
+            </div>
+        </div>
+
+        <div class="ecg-box">
+            <h3>Live ECG Pulse Waveform</h3>
+            <canvas id="ecgCanvas" height="150"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. Dynamic Clock Sync Updates
+            function updateDateTime() {
+                const dateTimeEl = document.getElementById("currentDateTime");
+                if (dateTimeEl) {
+                    const now = new Date();
+                    dateTimeEl.textContent = now.toLocaleDateString('en-US', {
+                        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
+                        hour: '2-digit', minute: '2-digit', second: '2-digit'
+                    });
+                }
+            }
+            setInterval(updateDateTime, 1000);
+            updateDateTime();
+
+            // 2. Set Up Dashboard Summary Quantities
+            if (document.getElementById("totalPatients")) document.getElementById("totalPatients").textContent = "12";
+            if (document.getElementById("healthyPatients")) document.getElementById("healthyPatients").textContent = "9";
+            if (document.getElementById("warningPatients")) document.getElementById("warningPatients").textContent = "2";
+            if (document.getElementById("criticalPatients")) document.getElementById("criticalPatients").textContent = "1";
+
+            // 3. IoT Biosensor Telemetry Simulation Loop
+            function simulateIoTData() {
+                const currentHR = Math.floor(Math.random() * (95 - 68 + 1)) + 68;
+                
+                if (document.getElementById("heartRate")) document.getElementById("heartRate").textContent = currentHR;
+                
+                if (document.getElementById("bp")) {
+                    const sys = Math.floor(Math.random() * (128 - 116 + 1)) + 116;
+                    const dia = Math.floor(Math.random() * (84 - 76 + 1)) + 76;
+                    document.getElementById("bp").textContent = `${sys}/${dia}`;
+                }
+                
+                if (document.getElementById("sugar")) document.getElementById("sugar").textContent = Math.floor(Math.random() * (115 - 90 + 1)) + 90;
+                if (document.getElementById("spo2")) document.getElementById("spo2").textContent = Math.floor(Math.random() * (100 - 96 + 1)) + 96;
+                if (document.getElementById("temperature")) document.getElementById("temperature").textContent = (Math.random() * (37.3 - 36.4) + 36.4).toFixed(1);
+            }
+            setInterval(simulateIoTData, 2000); // Poll fresh updates every 2 seconds
+            simulateIoTData();
+
+            // 4. Pure Canvas-Based Oscilloscope ECG Generator (No ChartJS Required)
+            const canvas = document.getElementById("ecgCanvas");
+            if (canvas) {
+                const ctx = canvas.getContext("2d");
+                
+                function resizeCanvas() {
+                    canvas.width = canvas.parentElement.clientWidth - 40;
+                }
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+
+                let x = 0;
+                const points = [];
+                const speed = 2;
+                
+                // Classic cardiac wave pattern adjustments: [P, Q, R, S, T]
+                const ecgPattern = [0, 0, 2, -3, 25, -6, 0, 4, 0, 0, 0, 0, 0, 0, 0];
+                let patternIndex = 0;
+
+                function drawECG() {
+                    // Create sliding background layout frame
+                    ctx.fillStyle = "rgba(15, 23, 42, 0.1)"; 
+                    ctx.fillRect(x, 0, speed * 4, canvas.height);
+
+                    ctx.strokeStyle = "#10b981"; // Bright neon medical green pulse line
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    
+                    let lastY = canvas.height / 2;
+                    let currentYOffset = ecgPattern[patternIndex];
+                    patternIndex = (patternIndex + 1) % ecgPattern.length;
+                    
+                    let currentY = (canvas.height / 2) - (currentYOffset * 2);
+                    
+                    ctx.moveTo(x - speed, lastY);
+                    ctx.lineTo(x, currentY);
+                    ctx.stroke();
+
+                    x += speed;
+
+                    // Wrap chart draw line back around when edge boundary constraint hits
+                    if (x >= canvas.width) {
+                        x = 0;
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    }
+
+                    requestAnimationFrame(drawECG);
+                }
+                drawECG();
+            }
+        });
+    </script>
 </body>
 </html>

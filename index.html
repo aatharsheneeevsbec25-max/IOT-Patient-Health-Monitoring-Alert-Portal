@@ -1,41 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - IoT Patient Health Monitoring</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        /* Contextual overrides to center the login card on the screen perfectly */
+        html, body {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0f172a; /* Dark sleek medical slate background */
+            margin: 0;
+            padding: 0;
+        }
 
-    <title>IoT Patient Health Monitoring and Alert Portal</title>
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        .login-card {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            color: #0f172a;
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .login-card p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #0f172a;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .btn-login {
+            width: 100%;
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            background-color: #0369a1;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+        }
+    </style>
 </head>
-
 <body>
 
-    <nav>
-        <h2>IoT Patient Health Monitoring</h2>
-
-        <div>
-            <a href="index.html">Home</a>
-            <a href="login.html">Login</a>
-            <a href="register.html">Register</a>
+    <div class="login-container">
+        <div class="login-card">
+            <h2>🏥 IoT Health</h2>
+            <p>Clinical Monitoring Gateway Access</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Doctor Username</label>
+                    <input type="text" id="username" placeholder="e.g., doctor123" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Security Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                
+                <button type="submit" class="btn-login">Verify Credentials</button>
+                
+                <div id="errorBox" class="error-msg">Invalid credential keys provided.</div>
+            </form>
         </div>
-    </nav>
+    </div>
 
-    <section class="hero">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loginForm = document.getElementById("loginForm");
+            const errorBox = document.getElementById("errorBox");
 
-        <h1>IoT Patient Health Monitoring and Alert Portal</h1>
+            if (loginForm) {
+                loginForm.addEventListener("submit", (e) => {
+                    e.preventDefault(); // Stop raw HTTP query refresh pipelines
+                    
+                    const usernameVal = document.getElementById("username").value.trim();
+                    const passwordVal = document.getElementById("password").value;
 
-        <p>
-            Real-Time Health Monitoring for Patients using IoT Technology
-        </p>
-
-        <a href="login.html">
-            <button>Get Started</button>
-        </a>
-
-    </section>
+                    // Standard front-end demo validation.
+                    // You can change "admin" and "password" to whatever credentials you like!
+                    if (usernameVal === "DOCTOR" && passwordVal === "5666") {
+                        errorBox.style.display = "none";
+                        
+                        // Push redirection forward into your main framework ecosystem window
+                        window.location.href = "dashboard.html";
+                    } else {
+                        // Fail conditions handling response triggers
+                        errorBox.style.display = "block";
+                        errorBox.textContent = "❌ Access Denied. Check username/password.";
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
-
 </html>

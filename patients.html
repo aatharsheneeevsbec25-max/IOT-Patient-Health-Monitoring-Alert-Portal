@@ -1,124 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Patients</title>
-
-<link rel="stylesheet" href="css/patients.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Management - IoT Health</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/patients.css">
 </head>
-
 <body>
 
-<nav>
+    <div class="sidebar">
+        <h2>🏥 IoT Health</h2>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="patients.html" class="active">👨‍⚕️ Patients</a>
+        <a href="alerts.html">🚨 Alerts</a>
+        <a href="reports.html">📄 Reports</a>
+        <a href="index.html">🚪 Logout</a>
+    </div>
 
-<h2>IoT Patient Health Monitoring</h2>
+    <div class="main">
+        <div class="header">
+            <h2>Patient Registry Management</h2>
+            <div class="top-right">
+                <p>👨‍⚕️ Clinician Desk</p>
+            </div>
+        </div>
 
-<div>
+        <div class="patient-form-container">
+            <h3>📝 Register New Monitored Patient</h3>
+            <form id="addPatientForm" class="inline-form">
+                
+                <div class="form-field-group">
+                    <label for="pName">Patient Name</label>
+                    <input type="text" id="pName" placeholder="e.g. Ramesh Kumar" required>
+                </div>
 
-<a href="dashboard.html">Dashboard</a>
+                <div class="form-field-group" style="max-width: 100px;">
+                    <label for="pAge">Age</label>
+                    <input type="number" id="pAge" placeholder="45" min="1" max="120" required>
+                </div>
 
-<a href="patients.html">Patients</a>
+                <div class="form-field-group">
+                    <label for="pGender">Gender</label>
+                    <select id="pGender" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
 
-<a href="alerts.html">Alerts</a>
+                <div class="form-field-group">
+                    <label for="pStatus">Vitals Condition Status</label>
+                    <select id="pStatus" required>
+                        <option value="Healthy">Healthy (Nominal)</option>
+                        <option value="Warning">Warning (Elevated)</option>
+                        <option value="Critical">Critical (Immediate Care)</option>
+                    </select>
+                </div>
 
-<a href="index.html">Logout</a>
+                <button type="submit" class="btn-submit-patient">➕ Add Patient</button>
+            </form>
+        </div>
 
-</div>
+        <h3 style="margin-bottom: 15px; color: #0f172a;">Active Monitored Patients</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Full Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Status Classification</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="patientsTableBody">
+                </tbody>
+        </table>
+    </div>
 
-</nav>
-
-<div class="container">
-
-<h1>Patient Management</h1>
-<h2>Add New Patient</h2>
-
-<form id="patientForm">
-
-    <input type="text" id="name" placeholder="Patient Name" required>
-
-    <input type="number" id="age" placeholder="Age" required>
-
-    <select id="gender">
-        <option>Male</option>
-        <option>Female</option>
-        <option>Other</option>
-    </select>
-
-    <button type="submit">Add Patient</button>
-
-</form>
-
-<br><br>
-
-<input
-type="text"
-id="search"
-placeholder="Search Patient">
-
-<button onclick="searchPatient()">
-Search
-</button>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>ID</th>
-
-<th>Name</th>
-
-<th>Age</th>
-
-<th>Gender</th>
-
-<th>Status</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody id="patientTable">
-
-<tr>
-
-<td>PAT001</td>
-
-<td>John Doe</td>
-
-<td>22</td>
-
-<td>Male</td>
-
-<td>Healthy</td>
-
-<td>
-
-<button>Edit</button>
-
-<button>Delete</button>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-<script src="js/patients.js"></script>
-
+    <script src="js/patients.js"></script>
 </body>
-
 </html>
