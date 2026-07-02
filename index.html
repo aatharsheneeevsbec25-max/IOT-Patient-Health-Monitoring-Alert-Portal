@@ -1,98 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Patient Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+    <title>IoT Patient Health Monitoring and Alert Portal</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans p-8">
 
-    <header class="mb-8 border-b border-slate-800 pb-4 flex justify-between items-center">
+<body>
+
+    <nav>
+        <h2>IoT Patient Health Monitoring</h2>
+
         <div>
-            <h1 class="text-3xl font-extrabold tracking-tight text-emerald-400">🚨 PulseWatch IoT</h1>
-            <p class="text-slate-400 text-sm">Patient Health Monitoring & Broadcast Portal</p>
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
         </div>
-        <div class="flex items-center gap-2 bg-emerald-950 text-emerald-400 px-3 py-1 rounded-full text-xs font-semibold animate-pulse">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Live Cloud Feed Active
-        </div>
-    </header>
-    
-    <div id="alert-box" class="mb-8 bg-rose-950/80 border border-rose-800 text-rose-200 p-4 rounded-xl shadow-lg hidden">
-        <h2 class="font-bold text-rose-400 mb-2 flex items-center gap-2">⚠️ CRITICAL SYSTEM ALERTS</h2>
-        <div id="alert-list" class="space-y-1 text-sm"></div>
-    </div>
+    </nav>
 
-    <h2 class="text-xl font-bold mb-4 text-slate-300">Monitored Wards</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="patient-grid">
-        <p class="text-slate-500 italic">Awaiting initial transmission streams from simulator hardware...</p>
-    </div>
+    <section class="hero">
 
-    <script>
-        // Connect our website to our live backend server
-     const socket = io('https://iot-patient-health-monitoring-alert-portal.onrender.com');
+        <h1>IoT Patient Health Monitoring and Alert Portal</h1>
 
-        // 1. Listen for standard health updates
-        socket.on('vitals-update', (data) => {
-            patientData[data.patientId] = data;
-            renderCards();
-        });
+        <p>
+            Real-Time Health Monitoring for Patients using IoT Technology
+        </p>
 
-        // 2. Listen for critical warnings
-        socket.on('emergency-alert', (alert) => {
-            const alertBox = document.getElementById('alert-box');
-            const alertList = document.getElementById('alert-list');
-            alertBox.classList.remove('hidden');
-            
-            // Push the latest alert to the top of the box
-            alertList.innerHTML = `
-                <div class="p-2 bg-rose-900/30 rounded border-l-4 border-rose-500 mb-1">
-                    <strong>${alert.patientName}:</strong> ${alert.message}
-                </div>
-            ` + alertList.innerHTML;
-        });
+        <a href="login.html">
+            <button>Get Started</button>
+        </a>
 
-        // 3. Render cards dynamically based on the numbers received
-        function renderCards() {
-            const grid = document.getElementById('patient-grid');
-            grid.innerHTML = ""; 
+    </section>
 
-            Object.values(patientData).forEach(patient => {
-                const isCritical = patient.heartRate > 120 || patient.spo2 < 92;
-                
-                const cardHtml = `
-                    <div class="p-6 rounded-2xl bg-slate-900 border transition-all duration-300 ${isCritical ? 'border-rose-600 shadow-lg shadow-rose-950/20' : 'border-slate-800'}">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-100">${patient.patientName}</h3>
-                                <p class="text-xs text-slate-500">ID: ${patient.patientId}</p>
-                            </div>
-                            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold ${isCritical ? 'bg-rose-500 text-white animate-bounce' : 'bg-slate-800 text-slate-400'}">
-                                ${isCritical ? 'Critical' : 'Stable'}
-                            </span>
-                        </div>
-
-                        <div class="space-y-4">
-                            <div class="bg-slate-950 p-3 rounded-lg flex justify-between items-center">
-                                <span class="text-sm text-slate-400">Heart Rate</span>
-                                <span class="text-xl font-black ${patient.heartRate > 120 ? 'text-rose-500' : 'text-emerald-400'}">
-                                    ${patient.heartRate} <span class="text-xs font-normal text-slate-500">BPM</span>
-                                </span>
-                            </div>
-
-                            <div class="bg-slate-950 p-3 rounded-lg flex justify-between items-center">
-                                <span class="text-sm text-slate-400">Oxygen Levels (SpO2)</span>
-                                <span class="text-xl font-black ${patient.spo2 < 92 ? 'text-rose-500' : 'text-sky-400'}">
-                                    ${patient.spo2} <span class="text-xs font-normal text-slate-500">%</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                grid.innerHTML += cardHtml;
-            });
-        }
-    </script>
 </body>
+
 </html>

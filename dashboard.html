@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IoT Patient Health Monitoring Dashboard</title>
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>🏥 IoT Health</h2>
+
+    <a href="dashboard.html">📊 Dashboard</a>
+
+    <a href="patients.html">👨‍⚕️ Patients</a>
+
+    <a href="alerts.html">🚨 Alerts</a>
+
+    <a href="reports.html">📄 Reports</a>
+
+    <a href="index.html">🚪 Logout</a>
+
+</div>
+
+<div class="main">
+
+<section class="dashboard">
+
+<div class="dashboard-header">
+
+    <h2>Live Patient Monitoring</h2>
+
+    <div>
+
+        <span id="notificationBell" style="font-size:28px;">🔔</span>
+
+        <span id="notificationCount">0</span>
+
+        &nbsp;&nbsp;
+
+        <span id="currentDateTime"></span>
+
+    </div>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>❤️ Heart Rate</h3>
+<h1 id="heartRate">--</h1>
+<p>bpm</p>
+</div>
+
+<div class="card">
+<h3>🌡 Temperature</h3>
+<h1 id="temperature">--</h1>
+<p>°C</p>
+</div>
+
+<div class="card">
+<h3>🩸 SpO₂</h3>
+<h1 id="spo2">--</h1>
+<p>%</p>
+</div>
+
+<div class="card">
+<h3>💓 Blood Pressure</h3>
+<h1 id="bp">--</h1>
+<p>mmHg</p>
+</div>
+
+</div>
+
+<div class="graph">
+
+<h3>Live ECG Graph</h3>
+
+<canvas id="ecgCanvas"
+width="1000"
+height="250">
+</canvas>
+
+</div>
+<div class="graph">
+
+    <h3>Heart Rate Trend</h3>
+
+    <canvas id="heartChart"></canvas>
+
+</div>
+
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="js/dashboard.js"></script>
+
+</div>
+
+</body>
+</html>
+<h2>Hospital Statistics</h2>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Total Patients</h3>
+        <h1 id="totalPatients">0</h1>
+    </div>
+
+    <div class="card">
+        <h3>Healthy</h3>
+        <h1 id="healthyPatients">0</h1>
+    </div>
+
+    <div class="card">
+        <h3>Warning</h3>
+        <h1 id="warningPatients">0</h1>
+    </div>
+
+    <div class="card">
+        <h3>Critical</h3>
+        <h1 id="criticalPatients">0</h1>
+    </div>
+
+</div>
