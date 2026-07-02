@@ -7,6 +7,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+// Serve static files (HTML, CSS, JS, etc.)
+app.use(express.static(__dirname));
 
 const DATA_FOLDER = path.join(__dirname, "data");
 const FILE_PATH = path.join(DATA_FOLDER, "patients.json");
