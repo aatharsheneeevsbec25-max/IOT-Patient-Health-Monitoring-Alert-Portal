@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Registration</title>
-
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
 <div class="login-container">
 
     <h1>Patient Registration</h1>
 
-    <input type="text" id="name" placeholder="Full Name" required>
-    <input type="number" id="age" placeholder="Age" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
+    <div id="message-box" style="margin-bottom: 15px; font-weight: bold; display: none;"></div>
+
+    <input type="text" id="name" placeholder="Full Name">
+    
+    <input type="text" id="admissionNumber" placeholder="Admission Number (e.g., ADM-101)">
+
+    <input type="password" id="password" placeholder="Create Login Password">
 
     <button onclick="register()">Register</button>
 
@@ -28,7 +29,7 @@
 
 </div>
 
-<script src="dashboard.js"></script>
+<script src="js/script.js"></script>
 
 </body>
 </html>

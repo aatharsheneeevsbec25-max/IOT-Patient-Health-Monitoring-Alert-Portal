@@ -3,31 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Doctor Login | IoT Patient Health Monitoring</title>
 
-    <link rel="stylesheet" href="alerts.css">
+    <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:400px;
+    background:white;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+    text-align:center;
+}
+
+.login-box h1{
+    color:#0a6ebd;
+    margin-bottom:10px;
+}
+
+.login-box h3{
+    color:#555;
+    margin-bottom:30px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin:12px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#0a6ebd;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#084f88;
+}
+
+#error{
+    color:red;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.info{
+    margin-top:25px;
+    color:#666;
+    font-size:15px;
+}
+
+.logo{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+    </style>
+
 </head>
 
 <body>
 
-<div class="login-container">
+<div class="login-box">
 
-    <h1>Login</h1>
+<div class="logo">
+🏥
+</div>
 
-    <input type="email" id="email" placeholder="Email">
+<h1>IoT Patient Health Monitoring</h1>
 
-    <input type="password" id="password" placeholder="Password">
+<h3>Doctor Login</h3>
 
-    <button onclick="login()">Login</button>
+<input
+type="text"
+id="username"
+placeholder="Enter Username">
 
-    <p>
-        Don't have an account?
-        <a href="register.html">Register</a>
-    </p>
+<input
+type="password"
+id="password"
+placeholder="Enter Password">
+
+<button onclick="login()">
+Login
+</button>
+
+<p id="error"></p>
+
+<div class="info">
+
+<b>Demo Login</b><br><br>
+
+Username : <b>DOCTOR</b><br>
+
+Password : <b>5666</b>
 
 </div>
 
-<script src="js/script.js"></script>
+</div>
+
+<script>
+
+function login(){
+
+const username=document.getElementById("username").value.trim();
+
+const password=document.getElementById("password").value.trim();
+
+if(username==="DOCTOR" && password==="5666"){
+
+localStorage.setItem("loggedIn","true");
+
+localStorage.setItem("doctor","DOCTOR");
+
+alert("Login Successful");
+
+window.location.href="dashboard.html";
+
+}
+else{
+
+document.getElementById("error").innerHTML="Invalid Username or Password";
+
+}
+
+}
+
+document.addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+
+login();
+
+}
+
+});
+
+</script>
 
 </body>
 </html>
